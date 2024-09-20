@@ -1,0 +1,84 @@
+/* Body Styling: Center content vertically and horizontally */
+body {
+    min-height: 100vh; /* Ensures the body takes up the full height of the viewport */
+    display: grid; /* Uses grid layout to center content */
+    place-items: center; /* Centers content horizontally and vertically */
+}
+
+/* Slider Container: Positioned in the center, with hidden overflow to manage the slide track */
+.slider {
+    height: 250px;
+    margin: auto;
+    position: relative;
+    width: 90%;
+    display: grid;
+    place-items: center;
+    overflow: hidden; /* Hides any overflowing content (from sliding images) */
+}
+
+/* Slide Track: Holds all the slides in a horizontal row and applies an infinite scroll animation */
+.slide-track {
+    display: flex; /* Aligns slides in a row */
+    width: calc(250px * 18); /* ⧉Sets the total width based on the number of slides */
+    animation: scroll 40s linear infinite; /* Infinite horizontal scroll animation */
+}
+
+/* Pause the animation when the user hovers over the slider */
+.slide-track:hover {
+    animation-play-state: paused; /* Pauses animation on hover */
+}
+
+/* Scroll Animation: Moves the slides from right to left */
+@keyframes scroll {
+    0% {
+        transform: translateX(0); /* Initial position */
+    }
+    100% {
+        transform: translateX(calc(-250px * 9)); /* Moves the slides left by 9 slide widths */
+    }
+}
+
+/* Slide Styling: Ensures consistent slide size and centers the images */
+.slide {
+    height: 200px;
+    width: 250px;
+    display: flex;
+    align-items: center; /* Centers the image vertically */
+    padding: 15px;
+    perspective: 100px; /* Adds a 3D perspective for hover effects */
+}
+
+/* Image Styling: Ensure images fill the slide, and adds hover effect */
+img {
+    width: 100%; /* Ensures the image fills the entire slide */
+    transition: transform 1s; /* Smooth transition for hover effect */
+}
+
+/* Hover Effect: Slight 3D zoom effect on image hover */
+img:hover {
+    transform: translateZ(20px); /* Moves the image slightly forward */
+}
+
+/* Gradient Shadows: Creates gradient overlays on both sides of the slider for a shadow effect */
+.slider::before,
+.slider::after {
+    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 15%;
+    z-index: 2; /* Ensures the shadows stay on top of the images */
+}
+
+/* Left-side Gradient Shadow */
+.slider::before {
+    left: 0;
+    top: 0;
+}
+
+/* Right-side Gradient Shadow (rotated) */
+.slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg); /* Rotates the gradient shadow for the right side */
+}
